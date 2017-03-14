@@ -128,11 +128,21 @@ namespace SHColorPicker
             closePicker();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void picArea_Click(object sender, EventArgs e)
         {
             closePicker();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void picSpoid_Click(object sender, EventArgs e)
         {
             closePicker();
