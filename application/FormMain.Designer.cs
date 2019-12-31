@@ -149,13 +149,13 @@
             this.Btn_CallPicker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Btn_CallPicker.Font = new System.Drawing.Font("돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.Btn_CallPicker.ForeColor = System.Drawing.Color.White;
-            this.Btn_CallPicker.Location = new System.Drawing.Point(108, 217);
+            this.Btn_CallPicker.Location = new System.Drawing.Point(12, 217);
             this.Btn_CallPicker.Name = "Btn_CallPicker";
-            this.Btn_CallPicker.Size = new System.Drawing.Size(152, 87);
+            this.Btn_CallPicker.Size = new System.Drawing.Size(248, 36);
             this.Btn_CallPicker.TabIndex = 15;
             this.Btn_CallPicker.Text = "색상추출";
             this.Btn_CallPicker.UseVisualStyleBackColor = false;
-            this.Btn_CallPicker.Click += new System.EventHandler(this.BtnSpoidColor_Click);
+            this.Btn_CallPicker.Click += new System.EventHandler(this.Btn_CallPicker_Click);
             // 
             // PictureBox_Color
             // 
@@ -218,10 +218,10 @@
             this.GroupBox_ResultSet.ForeColor = System.Drawing.Color.SlateBlue;
             this.GroupBox_ResultSet.Location = new System.Drawing.Point(269, 7);
             this.GroupBox_ResultSet.Name = "GroupBox_ResultSet";
-            this.GroupBox_ResultSet.Size = new System.Drawing.Size(221, 297);
+            this.GroupBox_ResultSet.Size = new System.Drawing.Size(221, 246);
             this.GroupBox_ResultSet.TabIndex = 19;
             this.GroupBox_ResultSet.TabStop = false;
-            this.GroupBox_ResultSet.Text = "결과";
+            this.GroupBox_ResultSet.Text = "Info";
             // 
             // TextBox_RGBString
             // 

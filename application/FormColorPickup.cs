@@ -111,7 +111,7 @@ namespace SHColorPicker
         /// this 창의 클릭 이벤트에 의해서 호출될 메서드 이다.
         /// 여기서 종료시에 처리할 구문을 모아둔다.
         /// </summary>
-        private void closePicker()
+        private void ClosePicker()
         {
             timerPick.Stop();
             Cursor.Show();
@@ -125,7 +125,7 @@ namespace SHColorPicker
         /// <param name="e"></param>
         private void Form_Click(object sender, EventArgs e)
         {
-            closePicker();
+            ClosePicker();
         }
 
         /// <summary>
@@ -133,9 +133,9 @@ namespace SHColorPicker
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void picArea_Click(object sender, EventArgs e)
+        private void PictureBox_Scope_Click(object sender, EventArgs e)
         {
-            closePicker();
+            ClosePicker();
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace SHColorPicker
         /// <param name="e"></param>
         private void picSpoid_Click(object sender, EventArgs e)
         {
-            closePicker();
+            ClosePicker();
         }
     }
 }

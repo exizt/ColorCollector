@@ -52,7 +52,7 @@
             this.PictureBox_Scope.Size = new System.Drawing.Size(300, 300);
             this.PictureBox_Scope.TabIndex = 0;
             this.PictureBox_Scope.TabStop = false;
-            this.PictureBox_Scope.Click += new System.EventHandler(this.picArea_Click);
+            this.PictureBox_Scope.Click += new System.EventHandler(this.PictureBox_Scope_Click);
             // 
             // Pic_Pippet
             // 

@@ -49,7 +49,7 @@ namespace SHColorPicker
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BtnSpoidColor_Click(object sender, EventArgs e)
+        private void Btn_CallPicker_Click(object sender, EventArgs e)
         {
             //1. 커서를 숨긴다.
             //Cursor.Hide();

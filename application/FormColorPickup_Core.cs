@@ -21,13 +21,13 @@ namespace SHColorPicker
         /// <summary>
         /// 부모폼에 있는 미리보기 사이즈.
         /// </summary>
-        Size PreviewImageSize = new Size(0, 0);
+        Size ScopeViewSize = new Size(0, 0);
 
         /// <summary>
         /// 미리보기 사이즈 를 배율을 역으로 축소시킨 사이즈.
         /// </summary>
-        Size szPreviewCompress;
-        Point ptPreviewCompress;
+        Size ScopeSize;
+        Point ScopeStartPoint;
 
         /// <summary>
         /// 처음에 한번만 호출되는 메서드 이다.
@@ -43,8 +43,8 @@ namespace SHColorPicker
             }
 
             // 부모창의 미리보기 picturebox 의 Size 를 가져온다.
-            PreviewImageSize.Width = mParentForm.PictureBox_Scope.Size.Width;
-            PreviewImageSize.Height = mParentForm.PictureBox_Scope.Size.Height;
+            ScopeViewSize.Width = mParentForm.PictureBox_Scope.Size.Width;
+            ScopeViewSize.Height = mParentForm.PictureBox_Scope.Size.Height;
         }
 
         /// <summary>
@@ -54,12 +54,12 @@ namespace SHColorPicker
         private void loadPicker()
         {
             // 확대될 영역 (축소된 영역) 을 계산 (배율 역계산)
-            szPreviewCompress.Width = PreviewImageSize.Width / magnif;
-            szPreviewCompress.Height = PreviewImageSize.Height / magnif;
+            ScopeSize.Width = ScopeViewSize.Width / magnif;
+            ScopeSize.Height = ScopeViewSize.Height / magnif;
 
             // 필요한 만큼으로만 윈도우 폼 을 구성
-            this.Width = szPreviewCompress.Width + 200;
-            this.Height = szPreviewCompress.Height + 200;
+            this.Width = ScopeSize.Width + 200;
+            this.Height = ScopeSize.Height + 200;
 
             // ColorPickupForm 의 중간으로 Spoid Icon 위치
             this.Pic_Pippet.Left = this.Width / 2;
@@ -78,8 +78,8 @@ namespace SHColorPicker
             this.Top = ptMouseCursor.Y - (Size.Height / 2);
 
             // 축소된 영역의 XY 좌표
-            ptPreviewCompress.X = ptMouseCursor.X - (szPreviewCompress.Width / 2);
-            ptPreviewCompress.Y = ptMouseCursor.Y - (szPreviewCompress.Height / 2);
+            ScopeStartPoint.X = ptMouseCursor.X - (ScopeSize.Width / 2);
+            ScopeStartPoint.Y = ptMouseCursor.Y - (ScopeSize.Height / 2);
 
             // 미리보기 이미지 를 생성
             //bitmapPreview = createPreviewBitmap(ptPreviewImageCompress, szPreviewImageCompress);
@@ -101,13 +101,12 @@ namespace SHColorPicker
          }
 
         /// <summary>
-        /// 이미지 생성. 스크린에서 xy 좌표, width height 를 기준으로 이미지를 생성.
-        /// 이미지 를 확대함
+        /// 스크린에서 시작 좌표, 크기 기준으로 이미지를 생성
         /// </summary>
-        /// <param name="_startPoint">축소된 영역의 xy 좌표</param>
-        /// <param name="_blockSize">축소된 영역의 size</param>
-        /// <returns></returns>
-        private void drawPreviewBitmap(Point _startPoint, Size _blockSize, Image _PreviewImage)
+        /// <param name="_startPoint">시작 좌표</param>
+        /// <param name="_blockSize">픽업 영역</param>
+        /// <param name="_resultImage">결과를 담을 이미지 (영역 사이즈와 동일하게 하면 1:1)</param>
+        private void DrawPreviewBitmap(Point _startPoint, Size _blockSize, Image _resultImage)
         {
             try
             {
@@ -122,13 +121,13 @@ namespace SHColorPicker
                     }
 
                     // 이미지 의 확대 동작
-                    using (Graphics g = Graphics.FromImage(_PreviewImage))
+                    using (Graphics g = Graphics.FromImage(_resultImage))
                     {
                         //이 항목이 있어야 선명하게 확대가 된다.
                         g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
 
                         //이미지 확대 (bitmap 의 크기가 작고, szPreviewImage 의 크기가 커서 확대가 됨)
-                        g.DrawImage(bitmap, 0, 0, PreviewImageSize.Width, PreviewImageSize.Height);
+                        g.DrawImage(bitmap, 0, 0, ScopeViewSize.Width, ScopeViewSize.Height);
                     }
                 }
             } catch (Exception ex)

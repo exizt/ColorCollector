@@ -18,7 +18,7 @@ namespace SHColorPicker
         /// <param name="colorR"></param>
         /// <param name="colorG"></param>
         /// <param name="colorB"></param>
-        public void generateView_formColor(int colorR,int colorG,int colorB)
+        public void generateView_formColor(int colorR, int colorG, int colorB)
         {
             if (colorR > 255) colorR = 255;
             if (colorG > 255) colorG = 255;
