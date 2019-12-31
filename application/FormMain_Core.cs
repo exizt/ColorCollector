@@ -10,7 +10,7 @@ namespace SHColorPicker
         /// <summary>
         /// 미리보기 이미지 비트맵
         /// </summary>
-        public Bitmap bitmapPreview;
+        public Bitmap PreviewBitmap;
 
         /// <summary>
         /// R, G, B 코드, #FFF 코드 등을 생성해서 화면에 적용시킨다. 
@@ -39,7 +39,7 @@ namespace SHColorPicker
             {
                 return;
             }
-            debug("generateView_fromColor",color.ToString());
+            Debug("generateView_fromColor",color.ToString());
             TextBox_RGB_R.Text = color.R.ToString();
             TextBox_RGB_G.Text = color.G.ToString();
             TextBox_RGB_B.Text = color.B.ToString();
@@ -61,7 +61,7 @@ namespace SHColorPicker
             }
             catch (Exception ex)
             {
-                debug("[Exception][forcedStrtoInt]",ex.ToString());
+                Debug("[Exception][forcedStrtoInt]",ex.ToString());
                 return 0;
             }
         }
@@ -83,7 +83,7 @@ namespace SHColorPicker
             {
                 //color = Color.Black;
                 generateView_fromColor(Color.Black);
-                debug("[Exception][changeColorRGBText]", ex.ToString());
+                Debug("[Exception][changeColorRGBText]", ex.ToString());
             }
             
         }
@@ -108,7 +108,7 @@ namespace SHColorPicker
             }
             catch (Exception ex)
             {
-                debug("[Exception][getHEX_fromColor]", ex.ToString());
+                Debug("[Exception][getHEX_fromColor]", ex.ToString());
             }
             return hex;
         }
@@ -137,7 +137,7 @@ namespace SHColorPicker
             }
             catch (Exception ex)
             {
-                debug("[Exception][getRGB_fromColor]", ex.ToString());
+                Debug("[Exception][getRGB_fromColor]", ex.ToString());
             }
             return rgb;
         }
@@ -174,22 +174,28 @@ namespace SHColorPicker
         /// debug 용 메서드
         /// </summary>
         /// <param name="msg"></param>
-        private void debug(string msg)
+        private void Debug(string msg)
         {
-            if(isDebug) System.Diagnostics.Debug.WriteLine(msg);
+            if (isDebug)
+            {
+                System.Diagnostics.Debug.WriteLine($"[FormMain] {msg}");
+            }
         }
 
         /// <summary>
         /// debug 용 메서드
         /// </summary>
         /// <param name="msg"></param>
-        private void debug(string msg, string msg2)
+        private void Debug(string msg, string msg2)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(msg);
-            sb.Append(msg2);
-            debug(sb.ToString());
-            sb.Clear();
+            if (isDebug)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(msg);
+                sb.Append(msg2);
+                Debug(sb.ToString());
+                sb.Clear();
+            }
         }
     }
 }

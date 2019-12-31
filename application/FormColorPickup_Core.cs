@@ -21,7 +21,7 @@ namespace SHColorPicker
         /// <summary>
         /// 부모폼에 있는 미리보기 사이즈.
         /// </summary>
-        Size szPreviewImage = new Size(0, 0);
+        Size PreviewImageSize = new Size(0, 0);
 
         /// <summary>
         /// 미리보기 사이즈 를 배율을 역으로 축소시킨 사이즈.
@@ -43,8 +43,8 @@ namespace SHColorPicker
             }
 
             // 부모창의 미리보기 picturebox 의 Size 를 가져온다.
-            szPreviewImage.Width = mParentForm.PictureBox_Scope.Size.Width;
-            szPreviewImage.Height = mParentForm.PictureBox_Scope.Size.Height;
+            PreviewImageSize.Width = mParentForm.PictureBox_Scope.Size.Width;
+            PreviewImageSize.Height = mParentForm.PictureBox_Scope.Size.Height;
         }
 
         /// <summary>
@@ -54,16 +54,16 @@ namespace SHColorPicker
         private void loadPicker()
         {
             // 확대될 영역 (축소된 영역) 을 계산 (배율 역계산)
-            szPreviewCompress.Width = szPreviewImage.Width / magnif;
-            szPreviewCompress.Height = szPreviewImage.Height / magnif;
+            szPreviewCompress.Width = PreviewImageSize.Width / magnif;
+            szPreviewCompress.Height = PreviewImageSize.Height / magnif;
 
             // 필요한 만큼으로만 윈도우 폼 을 구성
             this.Width = szPreviewCompress.Width + 200;
             this.Height = szPreviewCompress.Height + 200;
 
             // ColorPickupForm 의 중간으로 Spoid Icon 위치
-            this.picSpoidIcon.Left = this.Width / 2;
-            this.picSpoidIcon.Top = this.Height / 2 - this.picSpoidIcon.Height/2 - 7;
+            this.Pic_Pippet.Left = this.Width / 2;
+            this.Pic_Pippet.Top = this.Height / 2 - this.Pic_Pippet.Height/2 - 7;
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace SHColorPicker
             //bitmapPreview = createPreviewBitmap(ptPreviewImageCompress, szPreviewImageCompress);
             try
             {
-                drawPreviewBitmap(ptPreviewCompress, szPreviewCompress, mParentForm.bitmapPreview);
+                drawPreviewBitmap(ptPreviewCompress, szPreviewCompress, mParentForm.PreviewBitmap);
             }
             catch (Exception ex)
             {
@@ -94,31 +94,31 @@ namespace SHColorPicker
             }
 
             // 색상코드 를 추출. 부모창에 대입.
-            mParentForm.generateView_fromColor(getColor_fromImage(mParentForm.bitmapPreview));
+            mParentForm.generateView_fromColor(getColor_fromImage(mParentForm.PreviewBitmap));
 
             // 결과를 부모창의 미리보기 이미지 에 대입
-            mParentForm.PictureBox_Scope.Image = mParentForm.bitmapPreview;
+            mParentForm.PictureBox_Scope.Image = mParentForm.PreviewBitmap;
          }
 
         /// <summary>
         /// 이미지 생성. 스크린에서 xy 좌표, width height 를 기준으로 이미지를 생성.
         /// 이미지 를 확대함
         /// </summary>
-        /// <param name="point">축소된 영역의 xy 좌표</param>
-        /// <param name="size">축소된 영역의 size</param>
+        /// <param name="_startPoint">축소된 영역의 xy 좌표</param>
+        /// <param name="_blockSize">축소된 영역의 size</param>
         /// <returns></returns>
-        private void drawPreviewBitmap(Point _pointStart, Size _sizeImage, Image _PreviewImage)
+        private void drawPreviewBitmap(Point _startPoint, Size _blockSize, Image _PreviewImage)
         {
             try
             {
                 // 임시 bitmap 생성. compress 사이즈 로 생성. using 내의 new 는 자동 해제
-                using (Bitmap bitmap = new Bitmap(_sizeImage.Width, _sizeImage.Height, PixelFormat.Format32bppArgb))
+                using (Bitmap bitmap = new Bitmap(_blockSize.Width, _blockSize.Height, PixelFormat.Format32bppArgb))
                 {
                     // 임시 bitmap 을 기준으로 grahipcs 를 시작.
                     using (Graphics g = Graphics.FromImage(bitmap))
                     {
                         // 인수:스크린좌표,그리기시작좌표,그리는사이즈.
-                        g.CopyFromScreen(_pointStart, ptZero, _sizeImage);
+                        g.CopyFromScreen(_startPoint, ptZero, _blockSize);
                     }
 
                     // 이미지 의 확대 동작
@@ -128,7 +128,7 @@ namespace SHColorPicker
                         g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
 
                         //이미지 확대 (bitmap 의 크기가 작고, szPreviewImage 의 크기가 커서 확대가 됨)
-                        g.DrawImage(bitmap, 0, 0, szPreviewImage.Width, szPreviewImage.Height);
+                        g.DrawImage(bitmap, 0, 0, PreviewImageSize.Width, PreviewImageSize.Height);
                     }
                 }
             } catch (Exception ex)

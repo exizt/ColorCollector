@@ -41,7 +41,7 @@ namespace SHColorPicker
             this.TextBox_RGB_R.KeyPress += new KeyPressEventHandler(this.KeyPress_onlyNumeric);
             this.TextBox_RGB_G.KeyPress += new KeyPressEventHandler(this.KeyPress_onlyNumeric);
             this.TextBox_RGB_B.KeyPress += new KeyPressEventHandler(this.KeyPress_onlyNumeric);
-            bitmapPreview = new Bitmap(PictureBox_Scope.Width, PictureBox_Scope.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            PreviewBitmap = new Bitmap(PictureBox_Scope.Width, PictureBox_Scope.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace SHColorPicker
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnSpoidColor_Click(object sender, EventArgs e)
+        private void BtnSpoidColor_Click(object sender, EventArgs e)
         {
             //1. 커서를 숨긴다.
             //Cursor.Hide();
@@ -100,7 +100,7 @@ namespace SHColorPicker
             catch (Exception ex)
             {
                 (sender as TextBox).Text = "0";
-                debug("[Exception][txtColorCode_TextChanged]", ex.ToString());
+                Debug("[Exception][txtColorCode_TextChanged]", ex.ToString());
             }
         }
 
@@ -132,13 +132,13 @@ namespace SHColorPicker
                 catch (Exception ex)
                 {
                     generateView_fromColor(Color.Black);
-                    debug("[Exception][txtColorCodeRGB_KeyUp]", ex.ToString());
+                    Debug("[Exception][txtColorCodeRGB_KeyUp]", ex.ToString());
                 }
 
             }
             else
             {
-                debug("[txtColorCodeRGB_KeyUp] ColorCode [Hex] 입력값이 양식과 일치하지 않음");
+                Debug("[txtColorCodeRGB_KeyUp] ColorCode [Hex] 입력값이 양식과 일치하지 않음");
             }
 
         }
@@ -168,12 +168,12 @@ namespace SHColorPicker
                 catch (Exception ex)
                 {
                     generateView_fromColor(Color.Black);
-                    debug("[Exception][txtColorCodeFF_KeyUp]", ex.ToString());
+                    Debug("[Exception][txtColorCodeFF_KeyUp]", ex.ToString());
                 }
             }
             else
             {
-                debug("[txtColorCodeFF_KeyUp] ColorCode [Hex] 입력값이 양식과 일치하지 않음");
+                Debug("[txtColorCodeFF_KeyUp] ColorCode [Hex] 입력값이 양식과 일치하지 않음");
             }
         }
 
@@ -213,7 +213,7 @@ namespace SHColorPicker
                 }
             } catch (Exception  ex)
             {
-                debug("[Exception][getColor_fromColorDialog]", ex.ToString());
+                Debug("[Exception][getColor_fromColorDialog]", ex.ToString());
                 return Color.Black;
             }
         }

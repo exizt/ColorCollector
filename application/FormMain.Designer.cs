@@ -17,9 +17,9 @@
             {
                 components.Dispose();
             }
-            if(disposing && (bitmapPreview != null))
+            if(disposing && (PreviewBitmap != null))
             {
-                bitmapPreview.Dispose();
+                PreviewBitmap.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -155,7 +155,7 @@
             this.Btn_CallPicker.TabIndex = 15;
             this.Btn_CallPicker.Text = "색상추출";
             this.Btn_CallPicker.UseVisualStyleBackColor = false;
-            this.Btn_CallPicker.Click += new System.EventHandler(this.btnSpoidColor_Click);
+            this.Btn_CallPicker.Click += new System.EventHandler(this.BtnSpoidColor_Click);
             // 
             // PictureBox_Color
             // 

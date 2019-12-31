@@ -67,7 +67,7 @@ namespace SHColorPicker
             if (isCursorDebug)
             {
                 Cursor.Show();
-                picSection.BackColor = Color.Black;
+                PictureBox_Scope.BackColor = Color.Black;
             }
             else
             {
