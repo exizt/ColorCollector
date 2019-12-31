@@ -43,7 +43,6 @@ namespace SHColorPicker
             this.TextBox_RGB_R.KeyPress += new KeyPressEventHandler(this.KeyPress_onlyNumeric);
             this.TextBox_RGB_G.KeyPress += new KeyPressEventHandler(this.KeyPress_onlyNumeric);
             this.TextBox_RGB_B.KeyPress += new KeyPressEventHandler(this.KeyPress_onlyNumeric);
-            PreviewBitmap = new Bitmap(PictureBox_Scope.Width, PictureBox_Scope.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
         }
 
         /// <summary>
@@ -61,6 +60,8 @@ namespace SHColorPicker
             {
                 form.ShowDialog();
             }
+            //Debug("Btn CallPicker Click ");
+            GC.Collect();
         }
 
         /// <summary>

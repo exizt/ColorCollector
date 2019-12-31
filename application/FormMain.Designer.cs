@@ -17,10 +17,6 @@
             {
                 components.Dispose();
             }
-            if(disposing && (PreviewBitmap != null))
-            {
-                PreviewBitmap.Dispose();
-            }
             base.Dispose(disposing);
         }
 
@@ -52,7 +48,6 @@
             this.GroupBox_ResultSet = new System.Windows.Forms.GroupBox();
             this.TextBox_RGBString = new System.Windows.Forms.TextBox();
             this.labelRGB = new System.Windows.Forms.Label();
-            this.Btn_CallPalette = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Color)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Scope)).BeginInit();
             this.ContextMenuStrip_Quick.SuspendLayout();
@@ -242,26 +237,11 @@
             this.labelRGB.TabIndex = 17;
             this.labelRGB.Text = "Web RGB";
             // 
-            // Btn_CallPalette
-            // 
-            this.Btn_CallPalette.BackColor = System.Drawing.Color.SteelBlue;
-            this.Btn_CallPalette.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Btn_CallPalette.Font = new System.Drawing.Font("돋움", 12F, System.Drawing.FontStyle.Bold);
-            this.Btn_CallPalette.ForeColor = System.Drawing.Color.White;
-            this.Btn_CallPalette.Location = new System.Drawing.Point(12, 217);
-            this.Btn_CallPalette.Name = "Btn_CallPalette";
-            this.Btn_CallPalette.Size = new System.Drawing.Size(89, 87);
-            this.Btn_CallPalette.TabIndex = 20;
-            this.Btn_CallPalette.Text = "선택";
-            this.Btn_CallPalette.UseVisualStyleBackColor = false;
-            this.Btn_CallPalette.Click += new System.EventHandler(this.btnColorPaletteDialog_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(504, 320);
-            this.Controls.Add(this.Btn_CallPalette);
+            this.ClientSize = new System.Drawing.Size(504, 267);
             this.Controls.Add(this.GroupBox_ResultSet);
             this.Controls.Add(this.PictureBox_Scope);
             this.Controls.Add(this.Btn_CallPicker);
@@ -296,7 +276,6 @@
         public System.Windows.Forms.TextBox TextBox_RGBHex;
         private System.Windows.Forms.TextBox TextBox_RGBString;
         private System.Windows.Forms.Button Btn_CallPicker;
-        private System.Windows.Forms.Button Btn_CallPalette;
         private System.Windows.Forms.GroupBox GroupBox_ResultSet;
         public System.Windows.Forms.PictureBox PictureBox_Color;
         public System.Windows.Forms.PictureBox PictureBox_Scope;

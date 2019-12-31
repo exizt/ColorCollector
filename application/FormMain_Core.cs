@@ -8,11 +8,6 @@ namespace SHColorPicker
     public partial class FormMain : Form
     {
         /// <summary>
-        /// 미리보기 이미지 비트맵
-        /// </summary>
-        public Bitmap PreviewBitmap;
-
-        /// <summary>
         /// R, G, B 코드, #FFF 코드 등을 생성해서 화면에 적용시킨다. 
         /// </summary>
         /// <param name="colorR"></param>
@@ -106,7 +101,8 @@ namespace SHColorPicker
                 sb.Append(color.G.ToString("X2"));
                 sb.Append(color.B.ToString("X2"));
                 hex = sb.ToString();
-                sb.Length = 0;
+                //sb.Length = 0;
+                sb.Clear();
             }
             catch (Exception ex)
             {

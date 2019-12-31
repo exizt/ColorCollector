@@ -85,7 +85,19 @@ namespace SHColorPicker
             //bitmapPreview = createPreviewBitmap(ptPreviewImageCompress, szPreviewImageCompress);
             try
             {
-                drawPreviewBitmap(ptPreviewCompress, szPreviewCompress, mParentForm.PreviewBitmap);
+                Bitmap bitmap = new Bitmap(ScopeViewSize.Width, ScopeViewSize.Height, PixelFormat.Format32bppArgb);
+                DrawPreviewBitmap(ScopeStartPoint, ScopeSize, bitmap);
+
+                // 색상코드 를 추출. 부모창에 대입.
+                mParentForm.generateView_fromColor(getColor_fromImage(bitmap));
+
+                if(mParentForm.PictureBox_Scope.Image != null)
+                {
+                    mParentForm.PictureBox_Scope.Image.Dispose();
+                }
+
+                // 결과를 부모창의 미리보기 이미지 에 대입
+                mParentForm.PictureBox_Scope.Image = bitmap;
             }
             catch (Exception ex)
             {
@@ -93,11 +105,7 @@ namespace SHColorPicker
                 return;
             }
 
-            // 색상코드 를 추출. 부모창에 대입.
-            mParentForm.generateView_fromColor(getColor_fromImage(mParentForm.PreviewBitmap));
 
-            // 결과를 부모창의 미리보기 이미지 에 대입
-            mParentForm.PictureBox_Scope.Image = mParentForm.PreviewBitmap;
          }
 
         /// <summary>
