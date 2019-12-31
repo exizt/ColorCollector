@@ -35,11 +35,13 @@ namespace SHColorPicker
         /// <param name="color"></param>
         public void generateView_fromColor(Color color)
         {
+            // 선택된 값이 기존 값과 동일하면 처리할 것이 없으므로 return
             if(PictureBox_Color.BackColor == color)
             {
                 return;
             }
-            Debug("generateView_fromColor",color.ToString());
+
+            Debug("generateView_fromColor",color);
             TextBox_RGB_R.Text = color.R.ToString();
             TextBox_RGB_G.Text = color.G.ToString();
             TextBox_RGB_B.Text = color.B.ToString();
@@ -61,7 +63,7 @@ namespace SHColorPicker
             }
             catch (Exception ex)
             {
-                Debug("[Exception][forcedStrtoInt]",ex.ToString());
+                Debug("[Exception][forcedStrtoInt]",ex);
                 return 0;
             }
         }
@@ -83,7 +85,7 @@ namespace SHColorPicker
             {
                 //color = Color.Black;
                 generateView_fromColor(Color.Black);
-                Debug("[Exception][changeColorRGBText]", ex.ToString());
+                Debug("[Exception][changeColorRGBText]", ex);
             }
             
         }
@@ -108,7 +110,7 @@ namespace SHColorPicker
             }
             catch (Exception ex)
             {
-                Debug("[Exception][getHEX_fromColor]", ex.ToString());
+                Debug("[Exception][getHEX_fromColor]", ex);
             }
             return hex;
         }
@@ -137,7 +139,7 @@ namespace SHColorPicker
             }
             catch (Exception ex)
             {
-                Debug("[Exception][getRGB_fromColor]", ex.ToString());
+                Debug("[Exception][getRGB_fromColor]", ex);
             }
             return rgb;
         }
@@ -186,13 +188,32 @@ namespace SHColorPicker
         /// debug 용 메서드
         /// </summary>
         /// <param name="msg"></param>
+#pragma warning disable IDE0051 // 사용되지 않는 private 멤버 제거
         private void Debug(string msg, string msg2)
+#pragma warning restore IDE0051 // 사용되지 않는 private 멤버 제거
         {
             if (isDebug)
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append(msg);
                 sb.Append(msg2);
+                Debug(sb.ToString());
+                sb.Clear();
+            }
+        }
+
+        /// <summary>
+        /// 디버그용 메서드
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="obj"></param>
+        private void Debug(string msg, Object obj)
+        {
+            if (isDebug)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(msg);
+                sb.Append(obj.ToString());
                 Debug(sb.ToString());
                 sb.Clear();
             }

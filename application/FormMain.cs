@@ -32,6 +32,8 @@ namespace SHColorPicker
         /// <param name="e"></param>
         private void FormMain_Load(object sender, EventArgs e)
         {
+            Debug("[Event]Load");
+
             //커서가 안 보이는 환경일 때, 커서를 복귀.
             Cursor current = Cursor.Current;
             if (current == null)
@@ -100,7 +102,7 @@ namespace SHColorPicker
             catch (Exception ex)
             {
                 (sender as TextBox).Text = "0";
-                Debug("[Exception][txtColorCode_TextChanged]", ex.ToString());
+                Debug("[Exception][txtColorCode_TextChanged]", ex);
             }
         }
 
@@ -132,7 +134,7 @@ namespace SHColorPicker
                 catch (Exception ex)
                 {
                     generateView_fromColor(Color.Black);
-                    Debug("[Exception][txtColorCodeRGB_KeyUp]", ex.ToString());
+                    Debug("[Exception][txtColorCodeRGB_KeyUp]", ex);
                 }
 
             }
@@ -168,7 +170,7 @@ namespace SHColorPicker
                 catch (Exception ex)
                 {
                     generateView_fromColor(Color.Black);
-                    Debug("[Exception][txtColorCodeFF_KeyUp]", ex.ToString());
+                    Debug("[Exception][txtColorCodeFF_KeyUp]", ex);
                 }
             }
             else
@@ -213,7 +215,7 @@ namespace SHColorPicker
                 }
             } catch (Exception  ex)
             {
-                Debug("[Exception][getColor_fromColorDialog]", ex.ToString());
+                Debug("[Exception][getColor_fromColorDialog]", ex);
                 return Color.Black;
             }
         }

@@ -89,7 +89,7 @@ namespace SHColorPicker
             }
             catch (Exception ex)
             {
-                debug("[Exception][callEventColorPickup-drawPreviewBitmap]", ex.ToString());
+                Debug("[Exception][callEventColorPickup-drawPreviewBitmap]", ex);
                 return;
             }
 
@@ -132,7 +132,7 @@ namespace SHColorPicker
                 }
             } catch (Exception ex)
             {
-                debug("[Exception][drawPreviewBitmap]",ex.ToString());
+                Debug("[Exception][drawPreviewBitmap]",ex);
                 throw;
             }
         }
@@ -152,25 +152,50 @@ namespace SHColorPicker
         }
 
         /// <summary>
-        /// 디버그용 메서드
+        /// debug 용 메서드
         /// </summary>
         /// <param name="msg"></param>
-        private void debug(string msg)
+        private void Debug(string msg)
         {
-            if(isDebug) System.Diagnostics.Debug.WriteLine(msg);
+            if (isDebug)
+            {
+                System.Diagnostics.Debug.WriteLine($"[FormColorPicker] {msg}");
+            }
         }
 
         /// <summary>
         /// debug 용 메서드
         /// </summary>
         /// <param name="msg"></param>
-        private void debug(string msg, string msg2)
+#pragma warning disable IDE0051 // 사용되지 않는 private 멤버 제거
+        private void Debug(string msg, string msg2)
+#pragma warning restore IDE0051 // 사용되지 않는 private 멤버 제거
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(msg);
-            sb.Append(msg2);
-            debug(sb.ToString());
-            sb.Clear();
+            if (isDebug)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(msg);
+                sb.Append(msg2);
+                Debug(sb.ToString());
+                sb.Clear();
+            }
+        }
+
+        /// <summary>
+        /// 디버그용 메서드
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="obj"></param>
+        private void Debug(string msg, Object obj)
+        {
+            if (isDebug)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(msg);
+                sb.Append(obj.ToString());
+                Debug(sb.ToString());
+                sb.Clear();
+            }
         }
     }
 }

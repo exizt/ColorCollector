@@ -59,6 +59,8 @@ namespace SHColorPicker
         /// <param name="e"></param>
         private void FormColorPickup_Load(object sender, EventArgs e)
         {
+            Debug("[Event]Load");
+
             /*
             * 1. 커서가 hidden 처리가 되지 않았다면, 여기서 hidden 처리를 한다.
             * 그러나 권장되는 것은, 이 윈도우가 뜨기 전에 이미 hide 처리 할 것을 권장한다.
