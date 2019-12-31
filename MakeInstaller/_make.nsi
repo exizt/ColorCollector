@@ -3,7 +3,7 @@
 ; 버전 정보 (Minor 사소한 업데이트, Buid 계속 카운팅)
 !define S_APP_VER_MAJOR 1
 !define S_APP_VER_MINOR 1
-!define S_APP_VER_BUILD 1
+!define S_APP_VER_BUILD 5
 
 ; 프로그램 그룹명 (폴더이름. 가급적 공백없이)
 !define S_PROG_GROUP "SHSoft"
@@ -23,11 +23,12 @@
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
 
-# 설치 경로
+; -------------------------------------------------
+; 설치 경로
 !define CUSTOM_INSTALL_DIR "$PROGRAMFILES64\${S_PROG_GROUP}\${PRODUCT_NAME}"
-# 시작메뉴. 생성될 폴더 경로
-!define CUSTOM_SM_DIR "$SMPROGRAMS\SH Color Picker"
-# 인스톨러 파일명
+; 시작메뉴. 생성될 폴더 경로
+!define CUSTOM_SM_DIR "$SMPROGRAMS\${PRODUCT_NAME}"
+; 인스톨러 파일명
 !define CUSTOM_INSTALLER "${PRODUCT_NAME}_${PRODUCT_VERSION}.exe"
 !define CUSTOM_OUTFILE "installer/${CUSTOM_INSTALLER}"
 

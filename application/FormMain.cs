@@ -20,9 +20,9 @@ namespace SHColorPicker
         /// </summary>
         public FormMain()
         {
-            SetAddRemoveProgramsIcon();
+            //SetAddRemoveProgramsIcon();
             InitializeComponent();//컴포넌트 초기화 메서드(기본적으로 들어감)
-            notifyIcon1.Text = "SH Color Picker";
+            NotifyIcon_Main.Text = "SH Color Picker";
         }
 
         /// <summary>
@@ -32,16 +32,17 @@ namespace SHColorPicker
         /// <param name="e"></param>
         private void FormMain_Load(object sender, EventArgs e)
         {
+            Debug("[Event]Load");
+
             //커서가 안 보이는 환경일 때, 커서를 복귀.
             Cursor current = Cursor.Current;
             if (current == null)
             {
                 Cursor.Show();
             }
-            this.tboxColorCodeR.KeyPress += new KeyPressEventHandler(this.KeyPress_onlyNumeric);
-            this.tboxColorCodeG.KeyPress += new KeyPressEventHandler(this.KeyPress_onlyNumeric);
-            this.tboxColorCodeB.KeyPress += new KeyPressEventHandler(this.KeyPress_onlyNumeric);
-            bitmapPreview = new Bitmap(picboxPreview.Width, picboxPreview.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            this.TextBox_RGB_R.KeyPress += new KeyPressEventHandler(this.KeyPress_onlyNumeric);
+            this.TextBox_RGB_G.KeyPress += new KeyPressEventHandler(this.KeyPress_onlyNumeric);
+            this.TextBox_RGB_B.KeyPress += new KeyPressEventHandler(this.KeyPress_onlyNumeric);
         }
 
         /// <summary>
@@ -49,7 +50,7 @@ namespace SHColorPicker
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnSpoidColor_Click(object sender, EventArgs e)
+        private void Btn_CallPicker_Click(object sender, EventArgs e)
         {
             //1. 커서를 숨긴다.
             //Cursor.Hide();
@@ -59,6 +60,8 @@ namespace SHColorPicker
             {
                 form.ShowDialog();
             }
+            //Debug("Btn CallPicker Click ");
+            GC.Collect();
         }
 
         /// <summary>
@@ -77,9 +80,9 @@ namespace SHColorPicker
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void txtColorCode_KeyUp(object sender, KeyEventArgs e)
+        private void TextBox_RGBCode_KeyUp(object sender, KeyEventArgs e)
         {
-            changeColorRGBText();
+            OnChangeRGBText();
         }
 
         /// <summary>
@@ -100,7 +103,7 @@ namespace SHColorPicker
             catch (Exception ex)
             {
                 (sender as TextBox).Text = "0";
-                debug("[Exception][txtColorCode_TextChanged]", ex.ToString());
+                Debug("[Exception][txtColorCode_TextChanged]", ex);
             }
         }
 
@@ -123,22 +126,22 @@ namespace SHColorPicker
                 {
                     int colorR, colorG, colorB;
                     string[] strs = (sender as TextBox).Text.Replace("RGB(", "").Replace(")", "").Split(new char[] { ',' });
-                    colorR = forcedStrtoInt(strs[0]);
-                    colorG = forcedStrtoInt(strs[1]);
-                    colorB = forcedStrtoInt(strs[2]);
+                    colorR = StrToIntSecure(strs[0]);
+                    colorG = StrToIntSecure(strs[1]);
+                    colorB = StrToIntSecure(strs[2]);
 
-                    getnerateView_formColor(colorR, colorG, colorB);
+                    generateView_formColor(colorR, colorG, colorB);
                 }
                 catch (Exception ex)
                 {
                     generateView_fromColor(Color.Black);
-                    debug("[Exception][txtColorCodeRGB_KeyUp]", ex.ToString());
+                    Debug("[Exception][txtColorCodeRGB_KeyUp]", ex);
                 }
 
             }
             else
             {
-                debug("[txtColorCodeRGB_KeyUp] ColorCode [Hex] 입력값이 양식과 일치하지 않음");
+                Debug("[txtColorCodeRGB_KeyUp] ColorCode [Hex] 입력값이 양식과 일치하지 않음");
             }
 
         }
@@ -168,12 +171,12 @@ namespace SHColorPicker
                 catch (Exception ex)
                 {
                     generateView_fromColor(Color.Black);
-                    debug("[Exception][txtColorCodeFF_KeyUp]", ex.ToString());
+                    Debug("[Exception][txtColorCodeFF_KeyUp]", ex);
                 }
             }
             else
             {
-                debug("[txtColorCodeFF_KeyUp] ColorCode [Hex] 입력값이 양식과 일치하지 않음");
+                Debug("[txtColorCodeFF_KeyUp] ColorCode [Hex] 입력값이 양식과 일치하지 않음");
             }
         }
 
@@ -213,7 +216,7 @@ namespace SHColorPicker
                 }
             } catch (Exception  ex)
             {
-                debug("[Exception][getColor_fromColorDialog]", ex.ToString());
+                Debug("[Exception][getColor_fromColorDialog]", ex);
                 return Color.Black;
             }
         }
@@ -223,9 +226,9 @@ namespace SHColorPicker
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void NotifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            this.showForm();
+            this.ShowForm();
         }
 
         /// <summary>
@@ -233,9 +236,9 @@ namespace SHColorPicker
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
+        private void NotifyIcon1_MouseClick(object sender, MouseEventArgs e)
         {
-            this.showForm();
+            this.ShowForm();
         }
 
 
@@ -258,30 +261,10 @@ namespace SHColorPicker
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void hide(object sender, FormClosingEventArgs e)
+        private void Hide(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
-            this.hideForm();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private void showForm()
-        {
-            this.Visible = true;//활성화
-            this.Opacity = 100;
-            this.WindowState = FormWindowState.Normal;//폼의 상태를 일반 상태로 되돌림.
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private void hideForm()
-        {
-            this.Opacity = 0;
-            this.Visible = false;
-            //this.WindowState = FormWindowState.Minimized;
+            this.HideForm();
         }
 
         /// <summary>
@@ -296,7 +279,7 @@ namespace SHColorPicker
             {
                 //MessageBox.Show("창이 최소화되었습니다.");
                 //창을 숨김 처리 한다.
-                this.hideForm();
+                this.HideForm();
             }
             else if (this.WindowState == FormWindowState.Maximized)
             {
@@ -313,6 +296,28 @@ namespace SHColorPicker
         {
             Application.Exit();
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void ShowForm()
+        {
+            this.Visible = true;//활성화
+            this.Opacity = 100;
+            this.WindowState = FormWindowState.Normal;//폼의 상태를 일반 상태로 되돌림.
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void HideForm()
+        {
+            this.Opacity = 0;
+            this.Visible = false;
+            //this.WindowState = FormWindowState.Minimized;
+        }
+
 
         /// <summary>
         /// ClickOnce 설치 의 경우, 제어판-프로그램추가/삭제 에서 아이콘 표시가 안 나온다.

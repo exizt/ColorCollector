@@ -21,13 +21,13 @@ namespace SHColorPicker
         /// <summary>
         /// 부모폼에 있는 미리보기 사이즈.
         /// </summary>
-        Size szPreviewImage = new Size(0, 0);
+        Size ScopeViewSize = new Size(0, 0);
 
         /// <summary>
         /// 미리보기 사이즈 를 배율을 역으로 축소시킨 사이즈.
         /// </summary>
-        Size szPreviewCompress;
-        Point ptPreviewCompress;
+        Size ScopeSize;
+        Point ScopeStartPoint;
 
         /// <summary>
         /// 처음에 한번만 호출되는 메서드 이다.
@@ -43,8 +43,8 @@ namespace SHColorPicker
             }
 
             // 부모창의 미리보기 picturebox 의 Size 를 가져온다.
-            szPreviewImage.Width = mParentForm.picboxPreview.Size.Width;
-            szPreviewImage.Height = mParentForm.picboxPreview.Size.Height;
+            ScopeViewSize.Width = mParentForm.PictureBox_Scope.Size.Width;
+            ScopeViewSize.Height = mParentForm.PictureBox_Scope.Size.Height;
         }
 
         /// <summary>
@@ -54,16 +54,16 @@ namespace SHColorPicker
         private void loadPicker()
         {
             // 확대될 영역 (축소된 영역) 을 계산 (배율 역계산)
-            szPreviewCompress.Width = szPreviewImage.Width / magnif;
-            szPreviewCompress.Height = szPreviewImage.Height / magnif;
+            ScopeSize.Width = ScopeViewSize.Width / magnif;
+            ScopeSize.Height = ScopeViewSize.Height / magnif;
 
             // 필요한 만큼으로만 윈도우 폼 을 구성
-            this.Width = szPreviewCompress.Width + 200;
-            this.Height = szPreviewCompress.Height + 200;
+            this.Width = ScopeSize.Width + 200;
+            this.Height = ScopeSize.Height + 200;
 
             // ColorPickupForm 의 중간으로 Spoid Icon 위치
-            this.picSpoidIcon.Left = this.Width / 2;
-            this.picSpoidIcon.Top = this.Height / 2 - this.picSpoidIcon.Height/2 - 7;
+            this.Pic_Pippet.Left = this.Width / 2;
+            this.Pic_Pippet.Top = this.Height / 2 - this.Pic_Pippet.Height/2 - 7;
         }
 
         /// <summary>
@@ -78,62 +78,69 @@ namespace SHColorPicker
             this.Top = ptMouseCursor.Y - (Size.Height / 2);
 
             // 축소된 영역의 XY 좌표
-            ptPreviewCompress.X = ptMouseCursor.X - (szPreviewCompress.Width / 2);
-            ptPreviewCompress.Y = ptMouseCursor.Y - (szPreviewCompress.Height / 2);
+            ScopeStartPoint.X = ptMouseCursor.X - (ScopeSize.Width / 2);
+            ScopeStartPoint.Y = ptMouseCursor.Y - (ScopeSize.Height / 2);
 
             // 미리보기 이미지 를 생성
             //bitmapPreview = createPreviewBitmap(ptPreviewImageCompress, szPreviewImageCompress);
             try
             {
-                drawPreviewBitmap(ptPreviewCompress, szPreviewCompress, mParentForm.bitmapPreview);
+                Bitmap bitmap = new Bitmap(ScopeViewSize.Width, ScopeViewSize.Height, PixelFormat.Format32bppArgb);
+                DrawPreviewBitmap(ScopeStartPoint, ScopeSize, bitmap);
+
+                // 색상코드 를 추출. 부모창에 대입.
+                mParentForm.generateView_fromColor(getColor_fromImage(bitmap));
+
+                if(mParentForm.PictureBox_Scope.Image != null)
+                {
+                    mParentForm.PictureBox_Scope.Image.Dispose();
+                }
+
+                // 결과를 부모창의 미리보기 이미지 에 대입
+                mParentForm.PictureBox_Scope.Image = bitmap;
             }
             catch (Exception ex)
             {
-                debug("[Exception][callEventColorPickup-drawPreviewBitmap]", ex.ToString());
+                Debug("[Exception][callEventColorPickup-drawPreviewBitmap]", ex);
                 return;
             }
 
-            // 색상코드 를 추출. 부모창에 대입.
-            mParentForm.generateView_fromColor(getColor_fromImage(mParentForm.bitmapPreview));
 
-            // 결과를 부모창의 미리보기 이미지 에 대입
-            mParentForm.picboxPreview.Image = mParentForm.bitmapPreview;
          }
 
         /// <summary>
-        /// 이미지 생성. 스크린에서 xy 좌표, width height 를 기준으로 이미지를 생성.
-        /// 이미지 를 확대함
+        /// 스크린에서 시작 좌표, 크기 기준으로 이미지를 생성
         /// </summary>
-        /// <param name="point">축소된 영역의 xy 좌표</param>
-        /// <param name="size">축소된 영역의 size</param>
-        /// <returns></returns>
-        private void drawPreviewBitmap(Point _pointStart, Size _sizeImage,Image _PreviewImage)
+        /// <param name="_startPoint">시작 좌표</param>
+        /// <param name="_blockSize">픽업 영역</param>
+        /// <param name="_resultImage">결과를 담을 이미지 (영역 사이즈와 동일하게 하면 1:1)</param>
+        private void DrawPreviewBitmap(Point _startPoint, Size _blockSize, Image _resultImage)
         {
             try
             {
                 // 임시 bitmap 생성. compress 사이즈 로 생성. using 내의 new 는 자동 해제
-                using (Bitmap bitmap = new Bitmap(_sizeImage.Width, _sizeImage.Height, PixelFormat.Format32bppArgb))
+                using (Bitmap bitmap = new Bitmap(_blockSize.Width, _blockSize.Height, PixelFormat.Format32bppArgb))
                 {
                     // 임시 bitmap 을 기준으로 grahipcs 를 시작.
                     using (Graphics g = Graphics.FromImage(bitmap))
                     {
                         // 인수:스크린좌표,그리기시작좌표,그리는사이즈.
-                        g.CopyFromScreen(_pointStart, ptZero, _sizeImage);
+                        g.CopyFromScreen(_startPoint, ptZero, _blockSize);
                     }
 
                     // 이미지 의 확대 동작
-                    using (Graphics g = Graphics.FromImage(_PreviewImage))
+                    using (Graphics g = Graphics.FromImage(_resultImage))
                     {
                         //이 항목이 있어야 선명하게 확대가 된다.
                         g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
 
                         //이미지 확대 (bitmap 의 크기가 작고, szPreviewImage 의 크기가 커서 확대가 됨)
-                        g.DrawImage(bitmap, 0, 0, szPreviewImage.Width, szPreviewImage.Height);
+                        g.DrawImage(bitmap, 0, 0, ScopeViewSize.Width, ScopeViewSize.Height);
                     }
                 }
             } catch (Exception ex)
             {
-                debug("[Exception][drawPreviewBitmap]",ex.ToString());
+                Debug("[Exception][drawPreviewBitmap]",ex);
                 throw;
             }
         }
@@ -153,25 +160,50 @@ namespace SHColorPicker
         }
 
         /// <summary>
-        /// 디버그용 메서드
+        /// debug 용 메서드
         /// </summary>
         /// <param name="msg"></param>
-        private void debug(string msg)
+        private void Debug(string msg)
         {
-            if(isDebug) System.Diagnostics.Debug.WriteLine(msg);
+            if (isDebug)
+            {
+                System.Diagnostics.Debug.WriteLine($"[FormColorPicker] {msg}");
+            }
         }
 
         /// <summary>
         /// debug 용 메서드
         /// </summary>
         /// <param name="msg"></param>
-        private void debug(string msg, string msg2)
+#pragma warning disable IDE0051 // 사용되지 않는 private 멤버 제거
+        private void Debug(string msg, string msg2)
+#pragma warning restore IDE0051 // 사용되지 않는 private 멤버 제거
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(msg);
-            sb.Append(msg2);
-            debug(sb.ToString());
-            sb.Clear();
+            if (isDebug)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(msg);
+                sb.Append(msg2);
+                Debug(sb.ToString());
+                sb.Clear();
+            }
+        }
+
+        /// <summary>
+        /// 디버그용 메서드
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="obj"></param>
+        private void Debug(string msg, Object obj)
+        {
+            if (isDebug)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(msg);
+                sb.Append(obj.ToString());
+                Debug(sb.ToString());
+                sb.Clear();
+            }
         }
     }
 }

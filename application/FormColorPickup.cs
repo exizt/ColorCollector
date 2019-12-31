@@ -59,6 +59,8 @@ namespace SHColorPicker
         /// <param name="e"></param>
         private void FormColorPickup_Load(object sender, EventArgs e)
         {
+            Debug("[Event]Load");
+
             /*
             * 1. 커서가 hidden 처리가 되지 않았다면, 여기서 hidden 처리를 한다.
             * 그러나 권장되는 것은, 이 윈도우가 뜨기 전에 이미 hide 처리 할 것을 권장한다.
@@ -67,7 +69,7 @@ namespace SHColorPicker
             if (isCursorDebug)
             {
                 Cursor.Show();
-                picSection.BackColor = Color.Black;
+                PictureBox_Scope.BackColor = Color.Black;
             }
             else
             {
@@ -111,7 +113,7 @@ namespace SHColorPicker
         /// this 창의 클릭 이벤트에 의해서 호출될 메서드 이다.
         /// 여기서 종료시에 처리할 구문을 모아둔다.
         /// </summary>
-        private void closePicker()
+        private void ClosePicker()
         {
             timerPick.Stop();
             Cursor.Show();
@@ -125,17 +127,27 @@ namespace SHColorPicker
         /// <param name="e"></param>
         private void Form_Click(object sender, EventArgs e)
         {
-            closePicker();
+            ClosePicker();
         }
 
-        private void picArea_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PictureBox_Scope_Click(object sender, EventArgs e)
         {
-            closePicker();
+            ClosePicker();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void picSpoid_Click(object sender, EventArgs e)
         {
-            closePicker();
+            ClosePicker();
         }
     }
 }

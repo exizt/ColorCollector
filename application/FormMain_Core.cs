@@ -8,17 +8,12 @@ namespace SHColorPicker
     public partial class FormMain : Form
     {
         /// <summary>
-        /// 미리보기 이미지 비트맵
-        /// </summary>
-        public Bitmap bitmapPreview;
-
-        /// <summary>
         /// R, G, B 코드, #FFF 코드 등을 생성해서 화면에 적용시킨다. 
         /// </summary>
         /// <param name="colorR"></param>
         /// <param name="colorG"></param>
         /// <param name="colorB"></param>
-        public void getnerateView_formColor(int colorR,int colorG,int colorB)
+        public void generateView_formColor(int colorR, int colorG, int colorB)
         {
             if (colorR > 255) colorR = 255;
             if (colorG > 255) colorG = 255;
@@ -35,17 +30,19 @@ namespace SHColorPicker
         /// <param name="color"></param>
         public void generateView_fromColor(Color color)
         {
-            if(picboxResultColor.BackColor == color)
+            // 선택된 값이 기존 값과 동일하면 처리할 것이 없으므로 return
+            if(PictureBox_Color.BackColor == color)
             {
                 return;
             }
-            debug("generateView_fromColor",color.ToString());
-            tboxColorCodeR.Text = color.R.ToString();
-            tboxColorCodeG.Text = color.G.ToString();
-            tboxColorCodeB.Text = color.B.ToString();
-            tboxColorCodeFF.Text = getHEX_fromColor(color);
-            tboxColorCodeRGB.Text = getRGB_fromColor(color);
-            picboxResultColor.BackColor = color;
+
+            Debug("generateView_fromColor",color);
+            TextBox_RGB_R.Text = color.R.ToString();
+            TextBox_RGB_G.Text = color.G.ToString();
+            TextBox_RGB_B.Text = color.B.ToString();
+            TextBox_RGBHex.Text = getHEX_fromColor(color);
+            TextBox_RGBString.Text = getRGB_fromColor(color);
+            PictureBox_Color.BackColor = color;
         }
 
         /// <summary>
@@ -53,7 +50,7 @@ namespace SHColorPicker
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        private int forcedStrtoInt(string str)
+        private int StrToIntSecure(string str)
         {
             try
             {
@@ -61,18 +58,18 @@ namespace SHColorPicker
             }
             catch (Exception ex)
             {
-                debug("[Exception][forcedStrtoInt]",ex.ToString());
+                Debug("[Exception][forcedStrtoInt]",ex);
                 return 0;
             }
         }
         /// <summary>
         /// 
         /// </summary>
-        private void changeColorRGBText()
+        private void OnChangeRGBText()
         {
-            int colorR = forcedStrtoInt(tboxColorCodeR.Text);
-            int colorG = forcedStrtoInt(tboxColorCodeG.Text);
-            int colorB = forcedStrtoInt(tboxColorCodeB.Text);
+            int colorR = StrToIntSecure(TextBox_RGB_R.Text);
+            int colorG = StrToIntSecure(TextBox_RGB_G.Text);
+            int colorB = StrToIntSecure(TextBox_RGB_B.Text);
 
             try
             {
@@ -83,7 +80,7 @@ namespace SHColorPicker
             {
                 //color = Color.Black;
                 generateView_fromColor(Color.Black);
-                debug("[Exception][changeColorRGBText]", ex.ToString());
+                Debug("[Exception][changeColorRGBText]", ex);
             }
             
         }
@@ -104,11 +101,12 @@ namespace SHColorPicker
                 sb.Append(color.G.ToString("X2"));
                 sb.Append(color.B.ToString("X2"));
                 hex = sb.ToString();
-                sb.Length = 0;
+                //sb.Length = 0;
+                sb.Clear();
             }
             catch (Exception ex)
             {
-                debug("[Exception][getHEX_fromColor]", ex.ToString());
+                Debug("[Exception][getHEX_fromColor]", ex);
             }
             return hex;
         }
@@ -137,7 +135,7 @@ namespace SHColorPicker
             }
             catch (Exception ex)
             {
-                debug("[Exception][getRGB_fromColor]", ex.ToString());
+                Debug("[Exception][getRGB_fromColor]", ex);
             }
             return rgb;
         }
@@ -174,22 +172,47 @@ namespace SHColorPicker
         /// debug 용 메서드
         /// </summary>
         /// <param name="msg"></param>
-        private void debug(string msg)
+        private void Debug(string msg)
         {
-            if(isDebug) System.Diagnostics.Debug.WriteLine(msg);
+            if (isDebug)
+            {
+                System.Diagnostics.Debug.WriteLine($"[FormMain] {msg}");
+            }
         }
 
         /// <summary>
         /// debug 용 메서드
         /// </summary>
         /// <param name="msg"></param>
-        private void debug(string msg, string msg2)
+#pragma warning disable IDE0051 // 사용되지 않는 private 멤버 제거
+        private void Debug(string msg, string msg2)
+#pragma warning restore IDE0051 // 사용되지 않는 private 멤버 제거
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(msg);
-            sb.Append(msg2);
-            debug(sb.ToString());
-            sb.Clear();
+            if (isDebug)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(msg);
+                sb.Append(msg2);
+                Debug(sb.ToString());
+                sb.Clear();
+            }
+        }
+
+        /// <summary>
+        /// 디버그용 메서드
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="obj"></param>
+        private void Debug(string msg, Object obj)
+        {
+            if (isDebug)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(msg);
+                sb.Append(obj.ToString());
+                Debug(sb.ToString());
+                sb.Clear();
+            }
         }
     }
 }

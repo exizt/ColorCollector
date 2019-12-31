@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.timerPick = new System.Windows.Forms.Timer(this.components);
-            this.picSection = new System.Windows.Forms.PictureBox();
-            this.picSpoidIcon = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.picSection)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picSpoidIcon)).BeginInit();
+            this.PictureBox_Scope = new System.Windows.Forms.PictureBox();
+            this.Pic_Pippet = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Scope)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pic_Pippet)).BeginInit();
             this.SuspendLayout();
             // 
             // timerPick
@@ -41,30 +41,30 @@
             this.timerPick.Interval = 1;
             this.timerPick.Tick += new System.EventHandler(this.timerPick_Tick);
             // 
-            // picSection
+            // PictureBox_Scope
             // 
-            this.picSection.BackColor = System.Drawing.Color.Turquoise;
-            this.picSection.ErrorImage = null;
-            this.picSection.ImageLocation = "0,0";
-            this.picSection.InitialImage = null;
-            this.picSection.Location = new System.Drawing.Point(0, 0);
-            this.picSection.Name = "picSection";
-            this.picSection.Size = new System.Drawing.Size(300, 300);
-            this.picSection.TabIndex = 0;
-            this.picSection.TabStop = false;
-            this.picSection.Click += new System.EventHandler(this.picArea_Click);
+            this.PictureBox_Scope.BackColor = System.Drawing.Color.Turquoise;
+            this.PictureBox_Scope.ErrorImage = null;
+            this.PictureBox_Scope.ImageLocation = "0,0";
+            this.PictureBox_Scope.InitialImage = null;
+            this.PictureBox_Scope.Location = new System.Drawing.Point(0, 0);
+            this.PictureBox_Scope.Name = "PictureBox_Scope";
+            this.PictureBox_Scope.Size = new System.Drawing.Size(300, 300);
+            this.PictureBox_Scope.TabIndex = 0;
+            this.PictureBox_Scope.TabStop = false;
+            this.PictureBox_Scope.Click += new System.EventHandler(this.PictureBox_Scope_Click);
             // 
-            // picSpoidIcon
+            // Pic_Pippet
             // 
-            this.picSpoidIcon.BackColor = System.Drawing.Color.Turquoise;
-            this.picSpoidIcon.Image = global::SHColorPicker.Properties.Resources.Image3;
-            this.picSpoidIcon.Location = new System.Drawing.Point(150, 134);
-            this.picSpoidIcon.Name = "picSpoidIcon";
-            this.picSpoidIcon.Size = new System.Drawing.Size(16, 16);
-            this.picSpoidIcon.TabIndex = 1;
-            this.picSpoidIcon.TabStop = false;
-            this.picSpoidIcon.WaitOnLoad = true;
-            this.picSpoidIcon.Click += new System.EventHandler(this.picSpoid_Click);
+            this.Pic_Pippet.BackColor = System.Drawing.Color.Turquoise;
+            this.Pic_Pippet.Image = global::SHColorPicker.Properties.Resources.Image3;
+            this.Pic_Pippet.Location = new System.Drawing.Point(150, 134);
+            this.Pic_Pippet.Name = "Pic_Pippet";
+            this.Pic_Pippet.Size = new System.Drawing.Size(16, 16);
+            this.Pic_Pippet.TabIndex = 1;
+            this.Pic_Pippet.TabStop = false;
+            this.Pic_Pippet.WaitOnLoad = true;
+            this.Pic_Pippet.Click += new System.EventHandler(this.picSpoid_Click);
             // 
             // FormColorPickup
             // 
@@ -72,18 +72,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Turquoise;
             this.ClientSize = new System.Drawing.Size(300, 300);
-            this.Controls.Add(this.picSpoidIcon);
-            this.Controls.Add(this.picSection);
+            this.Controls.Add(this.Pic_Pippet);
+            this.Controls.Add(this.PictureBox_Scope);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "ColorPickSpoid";
+            this.Name = "FormColorPickup";
             this.Text = "Color Pick Spoid";
             this.TransparencyKey = System.Drawing.Color.Turquoise;
             this.Load += new System.EventHandler(this.FormColorPickup_Load);
             this.Click += new System.EventHandler(this.Form_Click);
-            ((System.ComponentModel.ISupportInitialize)(this.picSection)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picSpoidIcon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Scope)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pic_Pippet)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -91,7 +91,7 @@
         #endregion
 
         private System.Windows.Forms.Timer timerPick;
-        private System.Windows.Forms.PictureBox picSection;
-        private System.Windows.Forms.PictureBox picSpoidIcon;
+        private System.Windows.Forms.PictureBox PictureBox_Scope;
+        private System.Windows.Forms.PictureBox Pic_Pippet;
     }
 }
