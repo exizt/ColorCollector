@@ -18,7 +18,7 @@ namespace SHColorPicker
         /// <param name="colorR"></param>
         /// <param name="colorG"></param>
         /// <param name="colorB"></param>
-        public void getnerateView_formColor(int colorR,int colorG,int colorB)
+        public void generateView_formColor(int colorR,int colorG,int colorB)
         {
             if (colorR > 255) colorR = 255;
             if (colorG > 255) colorG = 255;
@@ -35,17 +35,17 @@ namespace SHColorPicker
         /// <param name="color"></param>
         public void generateView_fromColor(Color color)
         {
-            if(picboxResultColor.BackColor == color)
+            if(PictureBox_Color.BackColor == color)
             {
                 return;
             }
             debug("generateView_fromColor",color.ToString());
-            tboxColorCodeR.Text = color.R.ToString();
-            tboxColorCodeG.Text = color.G.ToString();
-            tboxColorCodeB.Text = color.B.ToString();
-            tboxColorCodeFF.Text = getHEX_fromColor(color);
-            tboxColorCodeRGB.Text = getRGB_fromColor(color);
-            picboxResultColor.BackColor = color;
+            TextBox_RGB_R.Text = color.R.ToString();
+            TextBox_RGB_G.Text = color.G.ToString();
+            TextBox_RGB_B.Text = color.B.ToString();
+            TextBox_RGBHex.Text = getHEX_fromColor(color);
+            TextBox_RGBString.Text = getRGB_fromColor(color);
+            PictureBox_Color.BackColor = color;
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace SHColorPicker
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        private int forcedStrtoInt(string str)
+        private int StrToIntSecure(string str)
         {
             try
             {
@@ -68,11 +68,11 @@ namespace SHColorPicker
         /// <summary>
         /// 
         /// </summary>
-        private void changeColorRGBText()
+        private void OnChangeRGBText()
         {
-            int colorR = forcedStrtoInt(tboxColorCodeR.Text);
-            int colorG = forcedStrtoInt(tboxColorCodeG.Text);
-            int colorB = forcedStrtoInt(tboxColorCodeB.Text);
+            int colorR = StrToIntSecure(TextBox_RGB_R.Text);
+            int colorG = StrToIntSecure(TextBox_RGB_G.Text);
+            int colorB = StrToIntSecure(TextBox_RGB_B.Text);
 
             try
             {

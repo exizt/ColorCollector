@@ -43,8 +43,8 @@ namespace SHColorPicker
             }
 
             // 부모창의 미리보기 picturebox 의 Size 를 가져온다.
-            szPreviewImage.Width = mParentForm.picboxPreview.Size.Width;
-            szPreviewImage.Height = mParentForm.picboxPreview.Size.Height;
+            szPreviewImage.Width = mParentForm.PictureBox_Scope.Size.Width;
+            szPreviewImage.Height = mParentForm.PictureBox_Scope.Size.Height;
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace SHColorPicker
             mParentForm.generateView_fromColor(getColor_fromImage(mParentForm.bitmapPreview));
 
             // 결과를 부모창의 미리보기 이미지 에 대입
-            mParentForm.picboxPreview.Image = mParentForm.bitmapPreview;
+            mParentForm.PictureBox_Scope.Image = mParentForm.bitmapPreview;
          }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace SHColorPicker
         /// <param name="point">축소된 영역의 xy 좌표</param>
         /// <param name="size">축소된 영역의 size</param>
         /// <returns></returns>
-        private void drawPreviewBitmap(Point _pointStart, Size _sizeImage,Image _PreviewImage)
+        private void drawPreviewBitmap(Point _pointStart, Size _sizeImage, Image _PreviewImage)
         {
             try
             {
