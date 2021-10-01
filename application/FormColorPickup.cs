@@ -29,7 +29,7 @@ namespace SHColorPicker
         /// <summary>
         /// true 값으로 하면, 창의 투명화를 해제해서, 디버깅 하는 용도.
         /// </summary>
-        bool isCursorDebug = false;
+        private bool isCursorDebug = false;
 
         /// <summary>
         /// 마우스의 좌표를 담을 용도.
@@ -216,7 +216,7 @@ namespace SHColorPicker
 
                     // 색상코드 를 추출. 부모창에 대입.
                     Color color = colorPicker.GetColorFromImage(bitmap);
-                    mParentForm.generateView_fromColor(color);
+                    mParentForm.ChangeColorInfoViewsByColor(color);
 
                     Image oldImage = mParentForm.PictureBox_Scope.Image;
 
