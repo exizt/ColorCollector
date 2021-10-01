@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-
+using System.Text;
 
 /// <summary>
 /// [구현 방식 설명]
@@ -23,7 +23,7 @@ namespace SHColorPicker
         /// <summary>
         /// 로그 디버깅 옵션
         /// </summary>
-        bool isDebug = false;
+        bool isDebug = true;
 
         /// <summary>
         /// true 값으로 하면, 창의 투명화를 해제해서, 디버깅 하는 용도.
@@ -34,7 +34,19 @@ namespace SHColorPicker
         /// 마우스의 좌표를 담을 용도.
         /// </summary>
         Point ptMouseCursor = new Point();
-        
+
+        /// <summary>
+        /// 확대 배율. (기본값으로는 2배. 차후 변경 가능하게 구성)
+        /// </summary>
+        int magnif = 2;
+
+        /// <summary>
+        /// 부모폼에 있는 미리보기 사이즈.
+        /// </summary>
+        Size previewSize = new Size(0, 0);
+
+        // ColorPicker colorPicker = new ColorPicker();
+
         /// <summary>
         /// 생성자
         /// 기본 메서드. 폼 초기화.
@@ -48,8 +60,11 @@ namespace SHColorPicker
             //부모 폼 값
             mParentForm = _parentForm;
 
-            //부모창의 preview 와 크기가 같은 bitmap 생성
-            initPicker();
+            // 부모 창의 isDebug 옵션의 영향이 우선시
+            if (mParentForm.isDebug)
+            {
+                this.isDebug = true;
+            }
         }
 
         /// <summary>
@@ -76,11 +91,15 @@ namespace SHColorPicker
                 Cursor.Hide();
             }
 
+            // 부모창의 미리보기 picturebox 의 Size 를 가져온다.
+            previewSize.Width = mParentForm.PictureBox_Scope.Size.Width;
+            previewSize.Height = mParentForm.PictureBox_Scope.Size.Height;
+
             //debug("FormColorPickup_Load 호출");
             //szImgPreviewParent = mParentForm.szPreviewImage;
 
             // spoid picturebox 를 조절하고, spoid 를 정가운데에 놓음
-            loadPicker();
+            LoadPicker();
 
             //이벤트 발생
             timerPick_Tick(sender, e);
@@ -106,7 +125,7 @@ namespace SHColorPicker
             ptMouseCursor = Control.MousePosition;
 
             // 이벤트 호출
-            callEventColorPickup();
+            CallEventColorPickup();
         }
 
         /// <summary>
@@ -148,6 +167,62 @@ namespace SHColorPicker
         private void picSpoid_Click(object sender, EventArgs e)
         {
             ClosePicker();
+        }
+
+
+        /// <summary>
+        /// debug 용 메서드
+        /// </summary>
+        /// <param name="msg"></param>
+        private void Debug(string msg)
+        {
+            if (Enabled_Debug())
+            {
+                System.Diagnostics.Debug.WriteLine($"[FormColorPicker] {msg}");
+            }
+        }
+
+        /// <summary>
+        /// debug 용 메서드
+        /// </summary>
+        /// <param name="msg"></param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:사용되지 않는 private 멤버 제거", Justification = "<보류 중>")]
+        private void Debug(string msg, string msg2)
+        {
+            if (Enabled_Debug())
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(msg);
+                sb.Append(msg2);
+                Debug(sb.ToString());
+                sb.Clear();
+            }
+        }
+
+        /// <summary>
+        /// 디버그용 메서드
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="obj"></param>
+        private void Debug(string msg, Object obj)
+        {
+            if (Enabled_Debug())
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(msg);
+                sb.Append(obj.ToString());
+                Debug(sb.ToString());
+                sb.Clear();
+            }
+        }
+
+        /// <summary>
+        /// debug 조건 체크
+        /// </summary>
+        /// <returns></returns>
+        private bool Enabled_Debug()
+        {
+            return (bool)(isDebug && System.Diagnostics.Debugger.IsAttached);
         }
     }
 }

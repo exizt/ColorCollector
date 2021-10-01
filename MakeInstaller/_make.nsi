@@ -2,8 +2,8 @@
 
 ; 버전 정보 (Minor 사소한 업데이트, Buid 계속 카운팅)
 !define S_APP_VER_MAJOR 1
-!define S_APP_VER_MINOR 1
-!define S_APP_VER_BUILD 6
+!define S_APP_VER_MINOR 2
+!define S_APP_VER_BUILD 12
 
 ; 프로그램 그룹명 (폴더이름. 가급적 공백없이)
 !define S_PROG_GROUP "SHSoft"
