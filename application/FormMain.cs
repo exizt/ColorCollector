@@ -43,6 +43,7 @@ namespace SHColorPicker
             this.TextBox_RGB_R.KeyPress += new KeyPressEventHandler(this.KeyPress_onlyNumeric);
             this.TextBox_RGB_G.KeyPress += new KeyPressEventHandler(this.KeyPress_onlyNumeric);
             this.TextBox_RGB_B.KeyPress += new KeyPressEventHandler(this.KeyPress_onlyNumeric);
+
         }
 
         /// <summary>

@@ -40,8 +40,8 @@ namespace SHColorPicker
             TextBox_RGB_R.Text = color.R.ToString();
             TextBox_RGB_G.Text = color.G.ToString();
             TextBox_RGB_B.Text = color.B.ToString();
-            TextBox_RGBHex.Text = getHEX_fromColor(color);
-            TextBox_RGBString.Text = getRGB_fromColor(color);
+            TextBox_RGBHex.Text = GetHexCodeByColor(color);
+            TextBox_RGBString.Text = GetRGBCodeByColor(color);
             PictureBox_Color.BackColor = color;
         }
 
@@ -90,7 +90,7 @@ namespace SHColorPicker
         /// </summary>
         /// <param name="color"></param>
         /// <returns></returns>
-        private String getHEX_fromColor(Color color)
+        private String GetHexCodeByColor(Color color)
         {
             String hex = String.Empty;
             try
@@ -116,7 +116,7 @@ namespace SHColorPicker
         /// </summary>
         /// <param name="color"></param>
         /// <returns></returns>
-        private String getRGB_fromColor(Color color)
+        private String GetRGBCodeByColor(Color color)
         {
             String rgb = String.Empty;
             try
