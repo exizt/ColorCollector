@@ -11,7 +11,7 @@
 ; Build 테스팅 & 핫픽스 & 마이너 업데이트 & 코드 개선 등의 경우. 계속 카운팅
 !define S_APP_VER_MAJOR 1
 !define S_APP_VER_MINOR 2
-!define S_APP_VER_BUILD 12
+!define S_APP_VER_BUILD 13
 
 ;-------------------------------------------------
 ; 프로그램 그룹명 (폴더이름. 가급적 공백없이)
