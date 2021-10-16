@@ -13,7 +13,7 @@ namespace SHColorPicker
         /// <summary>
         /// 확대 배율. (기본값으로는 2배. 차후 변경 가능하게 구성)
         /// </summary>
-        int magnif = 2;
+        private int magnif = 2;
 
         /// <summary>
         /// point 0, 0

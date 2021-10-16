@@ -13,7 +13,7 @@ namespace SHColorPicker
         /// <param name="colorR"></param>
         /// <param name="colorG"></param>
         /// <param name="colorB"></param>
-        public void generateView_formColor(int colorR, int colorG, int colorB)
+        public void ChangeColorInfoByRGB(int colorR, int colorG, int colorB)
         {
             if (colorR > 255) colorR = 255;
             if (colorG > 255) colorG = 255;
@@ -21,14 +21,14 @@ namespace SHColorPicker
             if (colorR < 0) colorR = 0;
             if (colorG < 0) colorG = 0;
             if (colorB < 0) colorB = 0;
-            generateView_fromColor(Color.FromArgb(colorR, colorG, colorB));
+            ChangeColorInfoViewsByColor(Color.FromArgb(colorR, colorG, colorB));
         }
 
         /// <summary>
         /// R, G, B 코드, #FFF 코드 등을 생성해서 화면에 적용시킨다.
         /// </summary>
         /// <param name="color"></param>
-        public void generateView_fromColor(Color color)
+        public void ChangeColorInfoViewsByColor(Color color)
         {
             // 선택된 값이 기존 값과 동일하면 처리할 것이 없으므로 return
             if(PictureBox_Color.BackColor == color)
@@ -36,12 +36,12 @@ namespace SHColorPicker
                 return;
             }
 
-            Debug("generateView_fromColor",color);
+            Debug("ChangeColorInfoViewsByColor", color);
             TextBox_RGB_R.Text = color.R.ToString();
             TextBox_RGB_G.Text = color.G.ToString();
             TextBox_RGB_B.Text = color.B.ToString();
-            TextBox_RGBHex.Text = getHEX_fromColor(color);
-            TextBox_RGBString.Text = getRGB_fromColor(color);
+            TextBox_RGBHex.Text = GetHexCodeByColor(color);
+            TextBox_RGBString.Text = GetRGBCodeByColor(color);
             PictureBox_Color.BackColor = color;
         }
 
@@ -74,12 +74,12 @@ namespace SHColorPicker
             try
             {
                 //color = Color.FromArgb(colorR, colorG, colorB);
-                generateView_fromColor(Color.FromArgb(colorR, colorG, colorB));
+                ChangeColorInfoViewsByColor(Color.FromArgb(colorR, colorG, colorB));
             }
             catch (Exception ex)
             {
                 //color = Color.Black;
-                generateView_fromColor(Color.Black);
+                ChangeColorInfoViewsByColor(Color.Black);
                 Debug("[Exception][changeColorRGBText]", ex);
             }
             
@@ -90,7 +90,7 @@ namespace SHColorPicker
         /// </summary>
         /// <param name="color"></param>
         /// <returns></returns>
-        private String getHEX_fromColor(Color color)
+        private String GetHexCodeByColor(Color color)
         {
             String hex = String.Empty;
             try
@@ -116,7 +116,7 @@ namespace SHColorPicker
         /// </summary>
         /// <param name="color"></param>
         /// <returns></returns>
-        private String getRGB_fromColor(Color color)
+        private String GetRGBCodeByColor(Color color)
         {
             String rgb = String.Empty;
             try

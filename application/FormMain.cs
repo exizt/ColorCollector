@@ -43,6 +43,7 @@ namespace SHColorPicker
             this.TextBox_RGB_R.KeyPress += new KeyPressEventHandler(this.KeyPress_onlyNumeric);
             this.TextBox_RGB_G.KeyPress += new KeyPressEventHandler(this.KeyPress_onlyNumeric);
             this.TextBox_RGB_B.KeyPress += new KeyPressEventHandler(this.KeyPress_onlyNumeric);
+
         }
 
         /// <summary>
@@ -72,7 +73,7 @@ namespace SHColorPicker
         private void btnColorPaletteDialog_Click(object sender, EventArgs e)
         {
             Color color = getColor_fromColorDialog();
-            generateView_fromColor(color);
+            ChangeColorInfoViewsByColor(color);
         }
 
         /// <summary>
@@ -130,11 +131,11 @@ namespace SHColorPicker
                     colorG = StrToIntSecure(strs[1]);
                     colorB = StrToIntSecure(strs[2]);
 
-                    generateView_formColor(colorR, colorG, colorB);
+                    ChangeColorInfoByRGB(colorR, colorG, colorB);
                 }
                 catch (Exception ex)
                 {
-                    generateView_fromColor(Color.Black);
+                    ChangeColorInfoViewsByColor(Color.Black);
                     Debug("[Exception][txtColorCodeRGB_KeyUp]", ex);
                 }
 
@@ -166,11 +167,11 @@ namespace SHColorPicker
                 try
                 {
                     Color color = ColorTranslator.FromHtml((sender as TextBox).Text);
-                    generateView_fromColor(color);
+                    ChangeColorInfoViewsByColor(color);
                 }
                 catch (Exception ex)
                 {
-                    generateView_fromColor(Color.Black);
+                    ChangeColorInfoViewsByColor(Color.Black);
                     Debug("[Exception][txtColorCodeFF_KeyUp]", ex);
                 }
             }
@@ -319,10 +320,12 @@ namespace SHColorPicker
         }
 
 
+
         /// <summary>
         /// ClickOnce 설치 의 경우, 제어판-프로그램추가/삭제 에서 아이콘 표시가 안 나온다.
         /// 그 부분을 보정하는 소스.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:사용되지 않는 private 멤버 제거", Justification = "<보류 중>")]
         private static void SetAddRemoveProgramsIcon()
         {
             //only run if deployed
