@@ -1,4 +1,4 @@
-SH Color Picker
+SH Color
   - 무료 이용이 가능한 프리웨어입니다.
   - 색상코드를 추출하는 소프트웨어입니다. 
   - Windows 10에서 테스트되었으며, Windows 10 이상을 권장합니다.

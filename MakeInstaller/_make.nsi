@@ -12,20 +12,20 @@
 !define S_APP_VER_MAJOR 1
 !define S_APP_VER_MINOR 3
 !define S_APP_VER_PATCH 0
-!define S_APP_VER_BUILD 28
+!define S_APP_VER_BUILD 30
 
 ;-------------------------------------------------
 ; 프로그램 그룹명 (폴더이름. 가급적 공백없이)
 !define S_PROG_GROUP "SHSoft"
 
 ; 실행될 프로그램 exe 명
-!define S_MAIN_EXE "SHColorPickup.exe"
+!define S_MAIN_EXE "SHColor.exe"
 !define S_FILE_LOGO "_logo.ico"
 !define S_PRODUCT_SIZE 777 ; 설치 크기. 언인스톨시 참고 정보로 나옴.
 
 ; HM NIS Edit Wizard helper defines
-!define INSTALLER_FILENAME "SH_Color_Picker"
-!define PRODUCT_NAME "SH Color Picker"
+!define INSTALLER_FILENAME "SH_Color"
+!define PRODUCT_NAME "SH Color"
 !define PRODUCT_VERSION "${S_APP_VER_MAJOR}.${S_APP_VER_MINOR}.${S_APP_VER_PATCH}.${S_APP_VER_BUILD}"
 !define PRODUCT_PUBLISHER "SH Software"
 !define PRODUCT_WEB_SITE "https://chosim.asv.kr"
