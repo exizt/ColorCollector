@@ -10,21 +10,23 @@
 ; Minor 사소한 변경점
 ; Build 테스팅 & 핫픽스 & 마이너 업데이트 & 코드 개선 등의 경우. 계속 카운팅
 !define S_APP_VER_MAJOR 1
-!define S_APP_VER_MINOR 2
-!define S_APP_VER_BUILD 13
+!define S_APP_VER_MINOR 3
+!define S_APP_VER_PATCH 0
+!define S_APP_VER_BUILD 30
 
 ;-------------------------------------------------
 ; 프로그램 그룹명 (폴더이름. 가급적 공백없이)
 !define S_PROG_GROUP "SHSoft"
 
 ; 실행될 프로그램 exe 명
-!define S_MAIN_EXE "SHColorPickup.exe"
+!define S_MAIN_EXE "SHColor.exe"
 !define S_FILE_LOGO "_logo.ico"
-!define S_PRODUCT_SIZE 777 ;설치 크기 입니다. 언인스톨시에 참고 정보로 나옵니다.
+!define S_PRODUCT_SIZE 777 ; 설치 크기. 언인스톨시 참고 정보로 나옴.
 
 ; HM NIS Edit Wizard helper defines
-!define PRODUCT_NAME "SH Color Picker"
-!define PRODUCT_VERSION "${S_APP_VER_MAJOR}.${S_APP_VER_MINOR}.${S_APP_VER_BUILD}"
+!define INSTALLER_FILENAME "SH_Color"
+!define PRODUCT_NAME "SH Color"
+!define PRODUCT_VERSION "${S_APP_VER_MAJOR}.${S_APP_VER_MINOR}.${S_APP_VER_PATCH}.${S_APP_VER_BUILD}"
 !define PRODUCT_PUBLISHER "SH Software"
 !define PRODUCT_WEB_SITE "https://chosim.asv.kr"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\${S_MAIN_EXE}"
@@ -38,7 +40,7 @@
 ; 시작메뉴. 생성될 폴더 경로
 !define CUSTOM_SM_DIR "$SMPROGRAMS\${PRODUCT_NAME}"
 ; 인스톨러 파일명
-!define CUSTOM_INSTALLER "${PRODUCT_NAME}_${PRODUCT_VERSION}.exe"
+!define CUSTOM_INSTALLER "${INSTALLER_FILENAME}_${PRODUCT_VERSION}.exe"
 !define CUSTOM_OUTFILE "installer/${CUSTOM_INSTALLER}"
 
 
